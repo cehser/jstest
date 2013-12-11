@@ -1,20 +1,25 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="MyApp">
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
     <script src="http://code.angularjs.org/1.2.4/angular-animate.min.js"></script>
 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/ng-animation.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/controller.js"></script>
+
+    <script src="js/save.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,46 +30,145 @@
 </head>
 
 <body>
-    <div ng-controller="Controller">
+    <div ng-controller="Controller" class="container">
         <div class="page-header">
             <h1>Hello, world!</h1>
         </div>
 
-        <div>
-            <form ng-submit="addCustomer()">
-                <label>#:</label>
-                <input type="text" ng-model="number" placeholder="Enter customer # here">
-                <label>Name:</label>
-                <input type="text" ng-model="name" placeholder="Enter customer name here">
-                <label>Adresse:</label>
-                <input type="text" ng-model="address" placeholder="Enter customer address here">
-                <input class="btn-primary" type="submit" value="Kunden erstellen">
-            </form>
-            <hr>
-            <h2>Hello {{name}}!</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-form">Add new Customer</a>
+                </h4>
+            </div>
+            <div id="collapse-form"  class="panel-collapse collapse">
+                <div class="panel-body">
+                    <form ng-submit="addCustomer()" role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label for="input1" class="col-sm-2 control-label">#:</label>
+                            <div class="col-sm-10">
+                                <input id="input1" class="form-control" type="text" ng-model="number" placeholder="Enter customer # here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input2" class="col-sm-2 control-label">Firma:</label>
+                            <div class="col-sm-10">
+                                <input id="input2" class="form-control" type="text" ng-model="firm" placeholder="Enter customer firm here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input3" class="col-sm-2 control-label">Name:</label>
+                            <div class="col-sm-10">
+                                <input id="input3" class="form-control" type="text" ng-model="name" placeholder="Enter customer name here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input4" class="col-sm-2 control-label">Vorname:</label>
+                            <div class="col-sm-10">
+                                <input id="input4" class="form-control" type="text" ng-model="forename" placeholder="Enter customer name here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input5" class="col-sm-2 control-label">Straße:</label>
+                            <div class="col-sm-10">
+                                <input id="input5" class="form-control" type="text" ng-model="street" placeholder="Enter customer street here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input6" class="col-sm-2 control-label">PLZ:</label>
+                            <div class="col-sm-10">
+                                <input id="input6" class="form-control" type="text" ng-model="zip" placeholder="Enter customer zip here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input7" class="col-sm-2 control-label">Ort:</label>
+                            <div class="col-sm-10">
+                                <input id="input7" class="form-control" type="text" ng-model="city" placeholder="Enter customer city here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input8" class="col-sm-2 control-label">Telefon:</label>
+                            <div class="col-sm-10">
+                                <input id="input8" class="form-control" type="text" ng-model="phone" placeholder="Enter customer phone here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input9" class="col-sm-2 control-label">Mobil:</label>
+                            <div class="col-sm-10">
+                                <input id="input9" class="form-control" type="text" ng-model="mobile" placeholder="Enter customer mobile phone here">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input10" class="col-sm-2 control-label">E-Mail:</label>
+                            <div class="col-sm-10">
+                                <input id="input10" class="form-control" type="text" ng-model="email" placeholder="Enter customer email here">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input11" class="col-sm-2 control-label">Zahlungsbedingungen:</label>
+                            <div class="btn-group col-sm-10" data-toggle="buttons" >
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option1" ng-model="payment_terms" value="sofort">Sofort ohne Abzug.
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option2" ng-model="payment_terms" value="30 Tage">Innerhalb von 30 Tagen ohne Abzug.
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" id="option3" ng-model="payment_terms" value="bar">Keine Zahlung notwendig, Betrag bar erhalten.
+                                </label>
+                                <tt>color = {{payment_terms}}</tt><br/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input12" class="col-sm-2 control-label">Rechnungsadresse:</label>
+                            <div class="col-sm-10">
+                                <textarea id="input12" class="form-control" rows="6" ng-model="billing_address" placeholder="Enter billing address here"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input class="btn btn-primary" type="submit" value="Kunden erstellen">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">Kunden <input type="text" ng-model="q"></div>
+            <div class="panel-heading">Kunden
+                <input type="text" ng-model="q">
+            </div>
             <!--     <div class="panel-body">
             <p>...</p>
         </div>-->
 
             <!-- Table -->
-            <table class="table example-animate-container">
+            <table class="table table-striped">
                 <tr>
                     <th>#</th>
                     <th>Name</th>
                     <th>Adresse</th>
                 </tr>
-                <tr class="animate-repeat" ng-repeat="customer in customers | filter: q">
+                <tr ng-repeat="customer in customers | filter: q" class="toggle">
                     <td>{{customer.number}}</td>
                     <td>{{customer.name}}</td>
-                    <td>{{customer.address}}</td>
+                    <td>{{customer.street}}</td>
                 </tr>
             </table>
         </div>
+
+        <form class="form-inline pull-right" role="form">
+            <div class="form-group">
+                <button class="btn btn-warning" ng-click="toggleDebug()"><i class="glyphicon glyphicon-wrench"></i> Debug</button>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success" ng-click="saveData()"><i class="glyphicon glyphicon-floppy-disk"></i> Speichern</button>
+            </div>
+        </form>
     </div>
 </body>
 
